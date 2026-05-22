@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $store->name . ' Coupons & Promo Codes — DealVault')
+@section('title', $store->name . ' Coupons & Promo Codes — Valtwise')
 @section('meta_description', 'Find the latest ' . $store->name . ' coupon codes and deals. ' . $coupons->count() . ' active discounts verified today.')
 
 @push('styles')

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'All Stores — DealVault')
+@section('title', 'All Stores — Valtwise')
 
 @section('content')
 <section class="section">

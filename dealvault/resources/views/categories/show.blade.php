@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', $category->name . ' Coupons & Deals — DealVault')
+@section('title', $category->name . ' Coupons & Deals — Valtwise')
 
 @section('content')
 <section class="section">

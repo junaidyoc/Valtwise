@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'DealVault — Best Coupon Codes & Promo Deals')
+@section('title', 'Valtwise — Best Coupon Codes & Promo Deals')
 
 @section('content')
 

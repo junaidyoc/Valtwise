@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'DealVault — Save More Every Day')</title>
+    <title>@yield('title', 'Valtwise — Save More Every Day')</title>
     <meta name="description" content="@yield('meta_description', 'Find the best coupon codes, promo codes, and exclusive deals. Save big with verified discounts from top brands.')">
 
     {{-- Google Fonts --}}
@@ -496,7 +496,7 @@
     <div class="container navbar-inner">
         <a href="{{ route('home') }}" class="logo">
             <div class="logo-icon">✦</div>
-            DealVault
+            Valtwise
         </a>
         <div class="nav-links">
             <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a>
@@ -526,7 +526,7 @@
             <div class="footer-brand">
                 <a href="{{ route('home') }}" class="logo">
                     <div class="logo-icon">✦</div>
-                    DealVault
+                    Valtwise
                 </a>
                 <p>Find verified coupon codes and exclusive deals from top brands. Save money every time you shop online.</p>
             </div>
@@ -553,7 +553,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <span>© {{ date('Y') }} DealVault. All rights reserved.</span>
+            <span>© {{ date('Y') }} Valtwise. All rights reserved.</span>
             <span>Affiliate disclosure: We earn commissions from qualifying purchases.</span>
         </div>
     </div>
