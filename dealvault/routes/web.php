@@ -20,6 +20,7 @@ Route::get('/faq', [PageController::class, 'faq'])->name('faq');
 Route::get('/about-us', [PageController::class, 'about'])->name('about');
 Route::get('/contact-us', [PageController::class, 'contact'])->name('contact');
 Route::get('/how-to-use-coupon', [PageController::class, 'howToUse'])->name('how-to-use');
+Route::post('/contact-us', [PageController::class, 'contactSubmit'])->name('contact.submit');
 
 
 // ── Admin Auth ────────────────────────────────────────────────────────────────
