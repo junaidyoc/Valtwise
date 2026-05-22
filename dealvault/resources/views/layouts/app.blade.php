@@ -6,6 +6,9 @@
     <title>@yield('title', 'Valtwise — Save More Every Day')</title>
     <meta name="description" content="@yield('meta_description', 'Find the best coupon codes, promo codes, and exclusive deals. Save big with verified discounts from top brands.')">
 
+    {{-- Admitad Verification --}}
+    <meta name="verify-admitad" content="e560ada907" />
+
     {{-- Google Fonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
