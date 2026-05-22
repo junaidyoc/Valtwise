@@ -5,6 +5,7 @@ use App\Http\Controllers\StoreController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\Admin;
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 // ── Public Routes ─────────────────────────────────────────────────────────────
@@ -13,6 +14,13 @@ Route::get('/stores', [StoreController::class, 'index'])->name('stores.index');
 Route::get('/store/{slug}', [StoreController::class, 'show'])->name('stores.show');
 Route::get('/category/{slug}', [CategoryController::class, 'show'])->name('categories.show');
 Route::get('/go/{coupon}', [TrackingController::class, 'redirect'])->name('coupon.go');
+
+Route::get('/terms-and-conditions', [PageController::class, 'terms'])->name('terms');
+Route::get('/faq', [PageController::class, 'faq'])->name('faq');
+Route::get('/about-us', [PageController::class, 'about'])->name('about');
+Route::get('/contact-us', [PageController::class, 'contact'])->name('contact');
+Route::get('/how-to-use-coupon', [PageController::class, 'howToUse'])->name('how-to-use');
+
 
 // ── Admin Auth ────────────────────────────────────────────────────────────────
 Route::get('/admin/login', [Admin\AuthController::class, 'loginForm'])->name('admin.login');

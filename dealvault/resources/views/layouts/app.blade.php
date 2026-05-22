@@ -542,17 +542,15 @@
             </div>
             <div class="footer-col">
                 <h4>Company</h4>
-                <a href="#">About Us</a>
-                <a href="#">Blog</a>
-                <a href="#">Contact</a>
-                <a href="#">Advertise</a>
+                <a href="{{ route('about') }}">About Us</a>
+                <a href="{{ route('contact') }}">Contact Us</a>
+                <!-- <a href="#">Blog</a> -->
             </div>
             <div class="footer-col">
                 <h4>Legal</h4>
-                <a href="#">Terms of Use</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Cookie Policy</a>
-                <a href="#">FAQ</a>
+                <a href="{{ route('terms') }}">Terms & Conditions</a>
+                <a href="{{ route('faq') }}">FAQ</a>
+                <a href="{{ route('how-to-use') }}">How to Use</a>
             </div>
         </div>
         <div class="footer-bottom">
