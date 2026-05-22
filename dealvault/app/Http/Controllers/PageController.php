@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\ContactMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class PageController extends Controller
@@ -71,13 +72,20 @@ class PageController extends Controller
             }
         }
 
-        Mail::to('contactvaltwise@gmail.com')->send(new ContactMail(
-            firstName: $validated['first_name'],
-            lastName: $validated['last_name'] ?? '',
-            email: $validated['email'],
-            subjectType: $validated['subject'],
-            userMessage: $validated['message']
-        ));
+        try {
+            Mail::to('contactvaltwise@gmail.com')->send(new ContactMail(
+                firstName: $validated['first_name'],
+                lastName: $validated['last_name'] ?? '',
+                email: $validated['email'],
+                subjectType: $validated['subject'],
+                userMessage: $validated['message']
+            ));
+            Log::info('Contact email sent successfully', ['email' => $validated['email']]);
+        } catch (\Exception $e) {
+            Log::error('Contact email failed: ' . $e->getMessage());
+            return redirect()->route('contact')
+                ->with('contact_error', 'Failed to send message. Please try again.');
+        }
 
         return redirect()->route('contact')
             ->with('contact_success', true);

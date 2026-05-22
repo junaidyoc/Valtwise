@@ -108,6 +108,12 @@
       </div>
       @endif
 
+      @if(session('contact_error'))
+      <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:#dc2626;margin-bottom:16px">
+        {{ session('contact_error') }}
+      </div>
+      @endif
+
       @if($errors->any())
       <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:#dc2626;margin-bottom:16px">
         Please fix the errors and try again.
