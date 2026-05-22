@@ -20,7 +20,9 @@ Route::get('/faq', [PageController::class, 'faq'])->name('faq');
 Route::get('/about-us', [PageController::class, 'about'])->name('about');
 Route::get('/contact-us', [PageController::class, 'contact'])->name('contact');
 Route::get('/how-to-use-coupon', [PageController::class, 'howToUse'])->name('how-to-use');
-Route::post('/contact-us', [PageController::class, 'contactSubmit'])->name('contact.submit');
+Route::post('/contact-us', [PageController::class, 'contactSubmit'])
+    ->middleware('throttle:5,10') // Max 5 submissions per 10 minutes per IP
+    ->name('contact.submit');
 
 
 // ── Admin Auth ────────────────────────────────────────────────────────────────

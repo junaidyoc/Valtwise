@@ -50,7 +50,7 @@
         <div class="contact-icon">📧</div>
         <div>
           <div class="contact-label">Email</div>
-          <div class="contact-value">info@valtwise.co</div>
+          <div class="contact-value">contactvaltwise@gmail.com</div>
           <div class="contact-sub">We respond within 24 hours</div>
         </div>
       </div>
@@ -104,12 +104,24 @@
 
       @if(session('contact_success'))
       <div style="background:var(--green-light);border:1px solid #86efac;border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:#15803d;margin-bottom:16px">
-        ✅ Message sent! We'll reply within 24 hours.
+        Message sent! We'll reply within 24 hours.
+      </div>
+      @endif
+
+      @if($errors->any())
+      <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:#dc2626;margin-bottom:16px">
+        Please fix the errors and try again.
       </div>
       @endif
 
       <form method="POST" action="{{ route('contact') }}">
         @csrf
+        {{-- Honeypot spam trap - hidden from humans, bots fill it --}}
+        <div style="position:absolute;left:-9999px" aria-hidden="true">
+          <input type="text" name="website" tabindex="-1" autocomplete="off">
+        </div>
+        <input type="hidden" name="form_time" value="{{ time() }}">
+
         <div class="form-row">
           <div class="form-grp">
             <label>First Name</label>

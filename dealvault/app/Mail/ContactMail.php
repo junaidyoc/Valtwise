@@ -16,7 +16,7 @@ class ContactMail extends Mailable
         public string $firstName,
         public string $lastName,
         public string $email,
-        public string $subject,
+        public string $subjectType,
         public string $userMessage
     ) {}
 
@@ -31,7 +31,7 @@ class ContactMail extends Mailable
         ];
 
         return new Envelope(
-            subject: $subjectMap[$this->subject] ?? 'Contact Form Submission',
+            subject: $subjectMap[$this->subjectType] ?? 'Contact Form Submission',
             replyTo: [$this->email],
         );
     }

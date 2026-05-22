@@ -33,7 +33,7 @@
                             'other' => 'Other',
                         ];
                     @endphp
-                    {{ $subjects[$subject] ?? $subject }}
+                    {{ $subjects[$subjectType] ?? $subjectType }}
                 </td>
             </tr>
         </table>
