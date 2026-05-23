@@ -35,9 +35,9 @@
 
 <div class="container">
   <div class="page-body">
-    <div class="last-updated">📅 Last updated: January 2026</div>
+    <div class="last-updated">📅 Last updated: {{ date('F Y') }}</div>
 
-    <p>Welcome to <strong>Valtwise</strong> ("we", "our", or "us"). By accessing or using our website at valtwise.co, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, please do not use our services.</p>
+    <p>Welcome to <strong>Valtwise</strong> ("we", "our", or "us"). By accessing or using our website at valtwise-production.up.railway.app, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, please do not use our services.</p>
 
     <h2>1. About Valtwise</h2>
     <p>Valtwise is a coupon aggregation and deals discovery platform. We help shoppers find verified discount codes, promotional offers, and cashback deals from a wide range of online retailers and brands. Valtwise acts as an intermediary — we do not sell any products directly, and all purchases are made on the respective merchant's website.</p>

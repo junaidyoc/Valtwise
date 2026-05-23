@@ -103,15 +103,17 @@
       <p>Fill in the form below and our team will get back to you shortly.</p>
 
       @if(session('contact_success'))
-      <div style="background:var(--green-light);border:1px solid #86efac;border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:#15803d;margin-bottom:16px">
+      <div id="success-alert" style="background:var(--green-light);border:1px solid #86efac;border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:#15803d;margin-bottom:16px;transition:opacity 0.5s">
         Message sent! We'll reply within 24 hours.
       </div>
+      <script>setTimeout(()=>{const el=document.getElementById('success-alert');if(el){el.style.opacity='0';setTimeout(()=>el.remove(),500)}},5000)</script>
       @endif
 
       @if(session('contact_error'))
-      <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:#dc2626;margin-bottom:16px">
+      <div id="error-alert" style="background:#fef2f2;border:1px solid #fecaca;border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:#dc2626;margin-bottom:16px;transition:opacity 0.5s">
         {{ session('contact_error') }}
       </div>
+      <script>setTimeout(()=>{const el=document.getElementById('error-alert');if(el){el.style.opacity='0';setTimeout(()=>el.remove(),500)}},5000)</script>
       @endif
 
       @if($errors->any())
