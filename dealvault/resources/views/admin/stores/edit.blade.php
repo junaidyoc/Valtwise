@@ -39,6 +39,37 @@
                  placeholder="https://ad.admitad.com/g/XXXXX/?ulp={destination}">
         </div>
 
+        {{-- Commission Settings --}}
+        <div class="form-group">
+          <label>Commission Type</label>
+          <select name="commission_type">
+            <option value="cpa" {{ $store->commission_type === 'cpa' ? 'selected' : '' }}>CPA (Per Sale)</option>
+            <option value="cpc" {{ $store->commission_type === 'cpc' ? 'selected' : '' }}>CPC (Per Click)</option>
+            <option value="both" {{ $store->commission_type === 'both' ? 'selected' : '' }}>Both CPC + CPA</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Commission Info</label>
+          <input type="text" name="commission_rate"
+                 placeholder="e.g. $0.15 CPC or 5% CPA"
+                 value="{{ $store->commission_rate }}">
+        </div>
+
+        <div class="form-group">
+          <label>CPC Rate ($)</label>
+          <input type="number" name="cpc_rate"
+                 placeholder="0.15" step="0.01" min="0"
+                 value="{{ $store->cpc_rate }}">
+        </div>
+
+        <div class="form-group">
+          <label>CPA Rate (%)</label>
+          <input type="number" name="cpa_rate"
+                 placeholder="5" step="0.1" min="0" max="100"
+                 value="{{ $store->cpa_rate }}">
+        </div>
+
         <div class="form-group">
           <label>Logo URL</label>
           <input type="url" name="logo" value="{{ $store->logo }}">

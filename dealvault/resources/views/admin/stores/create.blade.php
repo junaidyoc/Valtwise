@@ -46,6 +46,46 @@
           </div>
         </div>
 
+        {{-- Commission Settings --}}
+        <div class="form-group">
+          <label>Commission Type</label>
+          <select name="commission_type">
+            <option value="cpa" {{ old('commission_type') === 'cpa' ? 'selected' : '' }}>CPA (Per Sale)</option>
+            <option value="cpc" {{ old('commission_type') === 'cpc' ? 'selected' : '' }}>CPC (Per Click)</option>
+            <option value="both" {{ old('commission_type') === 'both' ? 'selected' : '' }}>Both CPC + CPA</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Commission Info</label>
+          <input type="text" name="commission_rate"
+                 placeholder="e.g. $0.15 CPC or 5% CPA"
+                 value="{{ old('commission_rate') }}">
+          <div style="font-size:11px;color:#475569;margin-top:4px">
+            Display text for reference
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>CPC Rate ($)</label>
+          <input type="number" name="cpc_rate"
+                 placeholder="0.15" step="0.01" min="0"
+                 value="{{ old('cpc_rate') }}">
+          <div style="font-size:11px;color:#475569;margin-top:4px">
+            Amount earned per click (USD)
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>CPA Rate (%)</label>
+          <input type="number" name="cpa_rate"
+                 placeholder="5" step="0.1" min="0" max="100"
+                 value="{{ old('cpa_rate') }}">
+          <div style="font-size:11px;color:#475569;margin-top:4px">
+            Commission percentage per sale
+          </div>
+        </div>
+
         <div class="form-group">
           <label>Logo URL</label>
           <input type="url" name="logo"

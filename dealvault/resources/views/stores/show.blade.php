@@ -288,29 +288,6 @@
     </div>
 </section>
 
-{{-- JSON-LD structured data for Google rich results --}}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "name": "{{ $store->name }} Coupons",
-  "description": "Best coupon codes and deals for {{ $store->name }}",
-  "numberOfItems": {{ $coupons->count() }},
-  "itemListElement": [
-    @foreach($coupons->take(10) as $i => $coupon)
-    {
-      "@type": "Offer",
-      "position": {{ $i + 1 }},
-      "name": "{{ addslashes($coupon->title) }}",
-      "description": "{{ addslashes($coupon->description ?? '') }}",
-      "url": "{{ route('coupon.go', $coupon->id) }}",
-      "validThrough": "{{ $coupon->expires_at?->toIso8601String() ?? '2099-12-31T00:00:00Z' }}"
-    }{{ !$loop->last ? ',' : '' }}
-    @endforeach
-  ]
-}
-</script>
-
 @endsection
 
 @push('scripts')
