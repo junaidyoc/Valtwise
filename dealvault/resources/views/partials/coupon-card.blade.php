@@ -4,7 +4,8 @@
         <div class="coupon-store-row">
             <img class="coupon-store-logo"
                  src="{{ $coupon->store->logo_url }}"
-                 alt="{{ $coupon->store->name }}">
+                 alt="{{ $coupon->store->name }}"
+                 onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name={{ urlencode($coupon->store->name) }}&background=f3f4f6&color=374151&size=80'">
             <span class="coupon-store-name">{{ $coupon->store->name }}</span>
         </div>
 

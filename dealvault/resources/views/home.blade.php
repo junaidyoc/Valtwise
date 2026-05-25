@@ -13,7 +13,7 @@
                 {{ \App\Models\Coupon::active()->count() }}+ active deals today
             </div>
             <h1>Save more on everything<br>you <span>already buy</span></h1>
-            <p>Verified coupon codes, exclusive deals, and cashback offers from {{ \App\Models\Store::active()->count() }}+ top brands.</p>
+            <p>Verified coupon codes and exclusive deals from {{ \App\Models\Store::active()->count() }}+ top brands.</p>
             <form action="{{ route('stores.index') }}" method="GET" class="hero-search">
                 <input type="text" name="search" placeholder="Search for a store or brand…">
                 <button type="submit">Search</button>
@@ -33,13 +33,11 @@
             @foreach($featuredStores as $store)
             <a href="{{ route('stores.show', $store->slug) }}" class="store-card">
                 <div class="store-logo-wrap">
-                    <img src="{{ $store->logo_url }}" alt="{{ $store->name }}" loading="lazy">
+                    <img src="{{ $store->logo_url }}" alt="{{ $store->name }}" loading="lazy"
+                         onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name={{ urlencode($store->name) }}&background=f3f4f6&color=374151&size=80'">
                 </div>
                 <div class="store-name">{{ $store->name }}</div>
                 <div class="store-meta">{{ $store->coupons_count }} coupons</div>
-                @if($store->cashback_rate > 0)
-                    <div class="cashback-pill">{{ $store->cashback_rate }}% Cashback</div>
-                @endif
             </a>
             @endforeach
         </div>
@@ -97,27 +95,5 @@
         </div>
     </div>
 </section>
-
-{{-- ── Cashback ─────────────────────────────────────────────────────────── --}}
-@if($cashbackStores->isNotEmpty())
-<section class="section">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Top <span>Cashback</span> Stores</h2>
-        </div>
-        <div class="store-grid">
-            @foreach($cashbackStores as $store)
-            <a href="{{ route('stores.show', $store->slug) }}" class="store-card">
-                <div class="store-logo-wrap">
-                    <img src="{{ $store->logo_url }}" alt="{{ $store->name }}" loading="lazy">
-                </div>
-                <div class="store-name">{{ $store->name }}</div>
-                <div class="cashback-pill">{{ $store->cashback_rate }}% Cash Back</div>
-            </a>
-            @endforeach
-        </div>
-    </div>
-</section>
-@endif
 
 @endsection

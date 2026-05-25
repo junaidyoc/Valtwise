@@ -237,6 +237,18 @@
             transform: translateY(-3px);
             border-color: var(--green);
         }
+
+        /* ── A-Z Alphabetical Filter ─────────────────────────────────────────── */
+        .alpha-filter a:not(.disabled):hover {
+            background: var(--green) !important;
+            color: #fff !important;
+            transform: translateY(-1px);
+        }
+        .alpha-filter a.active {
+            background: var(--green) !important;
+            color: #fff !important;
+        }
+
         .store-logo-wrap {
             width: 72px;
             height: 72px;
@@ -554,6 +566,7 @@
             <div class="footer-col">
                 <h4>Legal</h4>
                 <a href="{{ route('terms') }}">Terms & Conditions</a>
+                <a href="{{ route('privacy') }}">Privacy Policy</a>
                 <a href="{{ route('faq') }}">FAQ</a>
                 <a href="{{ route('how-to-use') }}">How to Use</a>
             </div>

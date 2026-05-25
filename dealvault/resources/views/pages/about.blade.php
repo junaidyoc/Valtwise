@@ -58,7 +58,7 @@
       <div class="about-text">
         <h2>Our Mission</h2>
         <p>Valtwise was founded with a single goal: to help everyday shoppers discover the best deals on the things they actually buy — fashion, shoes, perfume, furniture, and much more.</p>
-        <p>We source coupon codes and deals directly from trusted affiliate networks and brand programs — so every deal you see is real and up to date. Whether you're looking for a discount on the latest trends or a cashback offer on home furniture, Valtwise has you covered.</p>
+        <p>We source coupon codes and deals directly from trusted affiliate networks and brand programs — so every deal you see is real and up to date. Whether you're looking for a discount on the latest trends or savings on home furniture, Valtwise has you covered.</p>
         <p>Our platform is completely <strong>free for shoppers</strong>. No hidden charges, no subscriptions, no nonsense.</p>
       </div>
       <div style="background:var(--dark);border-radius:20px;padding:32px">

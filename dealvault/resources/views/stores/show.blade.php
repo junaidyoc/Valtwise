@@ -135,7 +135,8 @@
         </div>
         <div class="store-header-inner">
             <div class="store-header-logo">
-                <img src="{{ $store->logo_url }}" alt="{{ $store->name }}">
+                <img src="{{ $store->logo_url }}" alt="{{ $store->name }}"
+                     onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name={{ urlencode($store->name) }}&background=f3f4f6&color=374151&size=80'">
             </div>
             <div class="store-header-info">
                 <h1>{{ $store->name }} Coupons</h1>
@@ -147,12 +148,6 @@
                         <div class="store-stat-num">{{ $coupons->count() }}</div>
                         <div class="store-stat-lbl">Active coupons</div>
                     </div>
-                    @if($store->cashback_rate > 0)
-                    <div class="store-stat">
-                        <div class="store-stat-num">{{ $store->cashback_rate }}%</div>
-                        <div class="store-stat-lbl">Cash back</div>
-                    </div>
-                    @endif
                     <div class="store-stat">
                         <div class="store-stat-num">{{ $coupons->where('is_verified', true)->count() }}</div>
                         <div class="store-stat-lbl">Verified</div>
@@ -258,14 +253,6 @@
 
             {{-- Sidebar --}}
             <div style="position:sticky;top:108px">
-                @if($store->cashback_rate > 0)
-                <div style="background:var(--green-light);border:1px solid #86efac;border-radius:var(--radius-lg);padding:20px;margin-bottom:20px;text-align:center">
-                    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#15803d;margin-bottom:6px">Cash Back Available</div>
-                    <div style="font-size:36px;font-weight:700;font-family:'Sora',sans-serif;color:var(--green)">{{ $store->cashback_rate }}%</div>
-                    <div style="font-size:13px;color:#15803d;margin-top:4px">on all purchases</div>
-                </div>
-                @endif
-
                 @if($similarStores->isNotEmpty())
                 <div style="background:var(--white);border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:20px">
                     <h4 style="font-size:14px;font-weight:600;margin-bottom:14px">Similar Stores</h4>
@@ -274,7 +261,8 @@
                        style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--gray-1)">
                         <img src="{{ $s->logo_url }}"
                              style="width:36px;height:36px;border-radius:8px;border:1px solid var(--gray-2);object-fit:contain;padding:3px;background:#fafafa"
-                             alt="{{ $s->name }}">
+                             alt="{{ $s->name }}"
+                             onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name={{ urlencode($s->name) }}&background=f3f4f6&color=374151&size=80'">
                         <div>
                             <div style="font-size:13px;font-weight:600">{{ $s->name }}</div>
                             <div style="font-size:11px;color:var(--gray-4)">{{ $s->coupons_count }} coupons</div>

@@ -37,10 +37,11 @@
   <div class="page-body">
     <div class="last-updated">📅 Last updated: {{ date('F Y') }}</div>
 
-    <p>Welcome to <strong>Valtwise</strong> ("we", "our", or "us"). By accessing or using our website at valtwise-production.up.railway.app, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, please do not use our services.</p>
+    {{-- FIX 1: Removed "at valtwise.com" — domain nahi liya abhi --}}
+    <p>Welcome to <strong>Valtwise</strong> ("we", "our", or "us"). By accessing or using our website, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, please do not use our services.</p>
 
     <h2>1. About Valtwise</h2>
-    <p>Valtwise is a coupon aggregation and deals discovery platform. We help shoppers find verified discount codes, promotional offers, and cashback deals from a wide range of online retailers and brands. Valtwise acts as an intermediary — we do not sell any products directly, and all purchases are made on the respective merchant's website.</p>
+    <p>Valtwise is a coupon aggregation and deals discovery platform. We help shoppers find verified discount codes and promotional offers from a wide range of online retailers and brands. Valtwise acts as an intermediary — we do not sell any products directly, and all purchases are made on the respective merchant's website.</p>
 
     <h2>2. Use of Our Services</h2>
     <p>By using Valtwise, you agree to:</p>
@@ -78,12 +79,17 @@
     </ul>
 
     <h2>8. Privacy</h2>
-    <p>Your use of Valtwise is also governed by our Privacy Policy. We do not sell your personal data. We collect limited analytics data to improve our services. Please review our Privacy Policy for full details.</p>
+    <p>Your use of Valtwise is also governed by our
+      {{-- FIX 2: Route use kiya hardcoded URL ki jagah --}}
+      <a href="{{ route('privacy') }}" style="color:var(--green)">Privacy Policy</a>.
+      We do not sell your personal data. We collect limited analytics data to improve our services. Please review our Privacy Policy for full details.
+    </p>
 
     <h2>9. Modifications</h2>
     <p>We reserve the right to update these Terms and Conditions at any time. Changes will be posted on this page with an updated date. Continued use of Valtwise after changes are published constitutes acceptance of the updated terms.</p>
 
     <h2>10. Contact</h2>
+    {{-- FIX 3: route('contact') use kiya — localhost URL hata diya --}}
     <p>If you have any questions about these terms, please <a href="{{ route('contact') }}" style="color:var(--green)">contact us</a>. We are happy to help.</p>
 
   </div>

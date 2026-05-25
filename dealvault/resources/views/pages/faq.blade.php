@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'FAQ — Frequently Asked Questions — Valtwise')
-@section('meta_description', 'Got questions about Valtwise? Find answers to the most common questions about using coupon codes, cashback, and deals.')
+@section('meta_description', 'Got questions about Valtwise? Find answers to the most common questions about using coupon codes and deals.')
 
 @section('content')
 
@@ -94,31 +94,6 @@
     </div>
 
     {{-- Section 2 --}}
-    <div class="faq-section">
-      <h2>💰 Cashback</h2>
-
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggle(this)">
-          What is cashback and how does it work?
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-a">
-          Cashback is a percentage of your purchase amount returned to you as a reward. When you click through a cashback offer on Valtwise and complete a purchase, the merchant pays us a commission, and we share a portion of that with you. Cashback rates are shown as a percentage on each store's page.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggle(this)">
-          Can I use a coupon code AND get cashback at the same time?
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-a">
-          Yes, in most cases you can use a coupon code and earn cashback simultaneously. Simply click the cashback offer to go through our tracking link, and then apply your coupon code at checkout. Both discounts should apply.
-        </div>
-      </div>
-    </div>
-
-    {{-- Section 3 --}}
     <div class="faq-section">
       <h2>🌐 About Valtwise</h2>
 

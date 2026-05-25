@@ -13,7 +13,7 @@ class HomeController extends Controller
         $featuredStores = Store::active()
             ->featured()
             ->withCount(['coupons' => fn($q) => $q->active()])
-            ->orderByDesc('cashback_rate')
+            ->orderBy('name')
             ->take(8)
             ->get();
 
@@ -29,17 +29,10 @@ class HomeController extends Controller
             ->take(12)
             ->get();
 
-        $cashbackStores = Store::active()
-            ->where('cashback_rate', '>', 0)
-            ->orderByDesc('cashback_rate')
-            ->take(6)
-            ->get();
-
         return view('home', compact(
             'featuredStores',
             'topCoupons',
             'categories',
-            'cashbackStores',
         ));
     }
 }

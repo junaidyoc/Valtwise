@@ -16,6 +16,7 @@ Route::get('/category/{slug}', [CategoryController::class, 'show'])->name('categ
 Route::get('/go/{coupon}', [TrackingController::class, 'redirect'])->name('coupon.go');
 
 Route::get('/terms-and-conditions', [PageController::class, 'terms'])->name('terms');
+Route::get('/privacy-policy', [PageController::class, 'privacy'])->name('privacy');
 Route::get('/faq', [PageController::class, 'faq'])->name('faq');
 Route::get('/about-us', [PageController::class, 'about'])->name('about');
 Route::get('/contact-us', [PageController::class, 'contact'])->name('contact');

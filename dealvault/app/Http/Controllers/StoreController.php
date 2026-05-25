@@ -17,10 +17,25 @@ class StoreController extends Controller
             ->when($request->category, fn($q, $c) =>
                 $q->whereHas('categories', fn($q2) => $q2->where('slug', $c))
             )
+            ->when($request->letter, function($q, $letter) {
+                if ($letter === '#') {
+                    // Numbers and special characters
+                    $q->whereRaw("name REGEXP '^[0-9]'");
+                } else {
+                    $q->where('name', 'like', "{$letter}%");
+                }
+            })
             ->orderBy('name')
             ->paginate(24);
 
-        return view('stores.index', compact('stores'));
+        // Get available first letters for the filter
+        $availableLetters = Store::active()
+            ->selectRaw("UPPER(LEFT(name, 1)) as letter")
+            ->groupBy('letter')
+            ->pluck('letter')
+            ->toArray();
+
+        return view('stores.index', compact('stores', 'availableLetters'));
     }
 
     public function show(string $slug)
