@@ -33,9 +33,20 @@ class CategoryController extends Controller
             'parent_id' => 'nullable|exists:categories,id',
         ]);
 
+        // Generate slug and check for uniqueness
+        $slug = Str::slug($request->name);
+
+        // Check if category with same slug already exists
+        $existing = Category::where('slug', $slug)->first();
+        if ($existing) {
+            return back()
+                ->withInput()
+                ->with('error', "A category with name '{$existing->name}' already exists. Please use a different name.");
+        }
+
         Category::create([
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'slug' => $slug,
             'icon' => $request->icon ?? '🏷️',
             'description' => $request->description,
             'parent_id' => $request->parent_id ?: null,

@@ -31,7 +31,6 @@ class AppServiceProvider extends ServiceProvider
             $navCategories = Category::parents()
                 ->with(['children' => fn($q) => $q->orderBy('name')->limit(8)])
                 ->withCount('activeStores')
-                ->having('active_stores_count', '>', 0)
                 ->orderByDesc('active_stores_count')
                 ->limit(6)
                 ->get();

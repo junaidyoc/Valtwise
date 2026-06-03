@@ -107,38 +107,40 @@ class DatabaseSeeder extends Seeder
             ],
         ];
 
-        foreach ($stores as $data) {
-            $coupons    = $data['coupons'];
-            $categorySlgs = $data['categories'];
-            unset($data['coupons'], $data['categories']);
+        if(5>10) {
+            foreach ($stores as $data) {
+                $coupons    = $data['coupons'];
+                $categorySlgs = $data['categories'];
+                unset($data['coupons'], $data['categories']);
 
-            $store = Store::firstOrCreate(['slug' => $data['slug']], array_merge($data, ['is_active' => true]));
+                $store = Store::firstOrCreate(['slug' => $data['slug']], array_merge($data, ['is_active' => true]));
 
-            // Attach categories
-            $categoryIds = Category::whereIn('slug', $categorySlgs)->pluck('id');
-            $store->categories()->syncWithoutDetaching($categoryIds);
+                // Attach categories
+                $categoryIds = Category::whereIn('slug', $categorySlgs)->pluck('id');
+                $store->categories()->syncWithoutDetaching($categoryIds);
 
-            // Create coupons
-            foreach ($coupons as $couponData) {
-                $store->coupons()->firstOrCreate(
-                    ['title' => $couponData['title']],
-                    array_merge($couponData, [
-                        'is_active'      => true,
-                        'click_count'    => rand(50, 2000),
-                        'is_verified'    => $couponData['is_verified'] ?? false,
-                        'is_exclusive'   => $couponData['is_exclusive'] ?? false,
-                        'destination_url'=> $data['website_url'],
-                    ])
-                );
+                // Create coupons
+                foreach ($coupons as $couponData) {
+                    $store->coupons()->firstOrCreate(
+                        ['title' => $couponData['title']],
+                        array_merge($couponData, [
+                            'is_active'      => true,
+                            'click_count'    => rand(50, 2000),
+                            'is_verified'    => $couponData['is_verified'] ?? false,
+                            'is_exclusive'   => $couponData['is_exclusive'] ?? false,
+                            'destination_url'=> $data['website_url'],
+                        ])
+                    );
+                }
             }
         }
 
         $this->command->info('Seeded categories, stores, and coupons successfully.');
 
         // Run Sale Events Seeder
-        $this->call(SaleEventSeeder::class);
+        // $this->call(SaleEventSeeder::class);
 
         // Run SEO Settings Seeder
-        $this->call(SeoSettingsSeeder::class);
+        // $this->call(SeoSettingsSeeder::class);
     }
 }

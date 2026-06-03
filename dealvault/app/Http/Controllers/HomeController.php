@@ -31,7 +31,6 @@ class HomeController extends Controller
         // Only show parent categories on homepage, with subcategory count
         $categories = Category::parents()
             ->withCount(['activeStores', 'children'])
-            ->having('active_stores_count', '>', 0)
             ->orderByDesc('active_stores_count')
             ->take(12)
             ->get();
