@@ -9,12 +9,18 @@ use Illuminate\Http\Request;
 
 class CouponController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $perPage = $request->input('per_page', 20);
+        $search = $request->input('search');
+
         $coupons = Coupon::with('store')
+            ->when($search, fn($q) => $q->where('title', 'like', "%{$search}%"))
             ->latest()
-            ->paginate(20);
-        return view('admin.coupons.index', compact('coupons'));
+            ->paginate($perPage)
+            ->appends($request->query());
+
+        return view('admin.coupons.index', compact('coupons', 'search', 'perPage'));
     }
 
     public function create()
@@ -43,6 +49,10 @@ class CouponController extends Controller
             'is_exclusive'    => $request->boolean('is_exclusive'),
             'is_active'       => $request->boolean('is_active', true),
             'expires_at'      => $request->expires_at ?: null,
+            // SEO fields
+            'meta_title'      => $request->meta_title,
+            'meta_description'=> $request->meta_description,
+            'focus_keyword'   => $request->focus_keyword,
         ]);
 
         return redirect()->route('admin.coupons.index')
@@ -69,6 +79,10 @@ class CouponController extends Controller
             'is_exclusive'    => $request->boolean('is_exclusive'),
             'is_active'       => $request->boolean('is_active'),
             'expires_at'      => $request->expires_at ?: null,
+            // SEO fields
+            'meta_title'      => $request->meta_title,
+            'meta_description'=> $request->meta_description,
+            'focus_keyword'   => $request->focus_keyword,
         ]);
 
         return redirect()->route('admin.coupons.index')

@@ -3,8 +3,18 @@
 @section('page-title', '🏪 Stores')
 
 @section('content')
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-  <div style="font-size:13px;color:#64748b">{{ $stores->total() }} total stores</div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:12px">
+  <div style="display:flex;align-items:center;gap:12px">
+    <form method="GET" action="{{ route('admin.stores.index') }}" style="display:flex;gap:8px">
+      <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Search stores..."
+             style="padding:8px 12px;border:1px solid #334155;border-radius:6px;background:#0f172a;color:#f1f5f9;font-size:13px;width:200px">
+      <button type="submit" class="btn btn-blue btn-sm">Search</button>
+      @if($search)
+      <a href="{{ route('admin.stores.index') }}" class="btn btn-gray btn-sm">Clear</a>
+      @endif
+    </form>
+    <span style="font-size:13px;color:#64748b">{{ $stores->total() }} stores</span>
+  </div>
   <a href="{{ route('admin.stores.create') }}" class="btn btn-green">+ Add Store</a>
 </div>
 
@@ -76,5 +86,16 @@
   </div>
 </div>
 
-<div class="pagination">{{ $stores->links() }}</div>
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:20px">
+  <div style="display:flex;align-items:center;gap:8px">
+    <span style="font-size:13px;color:#64748b">Show</span>
+    <select onchange="window.location.href=this.value" style="padding:6px 10px;border:1px solid #334155;border-radius:6px;background:#0f172a;color:#f1f5f9;font-size:13px">
+      @foreach([10, 15, 25, 50, 100] as $size)
+      <option value="{{ request()->fullUrlWithQuery(['per_page' => $size]) }}" {{ ($perPage ?? 15) == $size ? 'selected' : '' }}>{{ $size }}</option>
+      @endforeach
+    </select>
+    <span style="font-size:13px;color:#64748b">per page</span>
+  </div>
+  <div class="pagination">{{ $stores->links() }}</div>
+</div>
 @endsection

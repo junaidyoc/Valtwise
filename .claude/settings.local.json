@@ -3,7 +3,16 @@
     "allow": [
       "Bash(dir:*)",
       "Bash(php artisan db:seed:*)",
-      "Bash(php artisan tinker:*)"
+      "Bash(php artisan tinker:*)",
+      "Bash(php artisan make:migration:*)",
+      "Bash(php artisan view:clear:*)",
+      "Bash(php -l:*)",
+      "Bash(xxd:*)",
+      "Bash(php artisan route:list:*)",
+      "Bash(php artisan view:cache:*)",
+      "Bash(php artisan optimize:clear:*)",
+      "Bash(php artisan:*)",
+      "Bash(if not exist \"c:\\\\xampp\\\\htdocs\\\\coupon-site\\\\dealvault\\\\app\\\\View\\\\Components\" mkdir \"c:\\\\xampp\\\\htdocs\\\\coupon-site\\\\dealvault\\\\app\\\\View\\\\Components\")"
     ]
   }
 }

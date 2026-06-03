@@ -10,18 +10,28 @@ use Illuminate\Support\Str;
 
 class StoreController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $perPage = $request->input('per_page', 15);
+        $search = $request->input('search');
+
         $stores = Store::withCount(['coupons', 'clicks'])
             ->with('categories')
+            ->when($search, fn($q) => $q->where('name', 'like', "%{$search}%"))
             ->latest()
-            ->paginate(15);
-        return view('admin.stores.index', compact('stores'));
+            ->paginate($perPage)
+            ->appends($request->query());
+
+        return view('admin.stores.index', compact('stores', 'search', 'perPage'));
     }
 
     public function create()
     {
-        $categories = Category::all();
+        // Get parent categories with their children for grouped display
+        $categories = Category::parents()
+            ->with(['children' => fn($q) => $q->orderBy('name')])
+            ->orderBy('name')
+            ->get();
         return view('admin.stores.create', compact('categories'));
     }
 
@@ -43,6 +53,30 @@ class StoreController extends Controller
             'is_active'              => $request->boolean('is_active', true),
             'affiliate_url_template' => $request->affiliate_url_template,
             'network'                => $request->network,
+            // Commission fields
+            'commission_type'        => $request->commission_type,
+            'commission_rate'        => $request->commission_rate,
+            'cpc_rate'               => $request->cpc_rate,
+            'cpa_rate'               => $request->cpa_rate,
+            // Basic SEO
+            'meta_title'             => $request->meta_title,
+            'meta_description'       => $request->meta_description,
+            'focus_keyword'          => $request->focus_keyword,
+            // Open Graph
+            'og_title'               => $request->og_title,
+            'og_description'         => $request->og_description,
+            'og_image'               => $request->og_image,
+            // Twitter
+            'twitter_title'          => $request->twitter_title,
+            'twitter_description'    => $request->twitter_description,
+            'twitter_image'          => $request->twitter_image,
+            // Technical SEO
+            'canonical_url'          => $request->canonical_url,
+            'robots_index'           => $request->robots_index ?? 'index',
+            'robots_follow'          => $request->robots_follow ?? 'follow',
+            'schema_type'            => $request->schema_type ?? 'Store',
+            'sitemap_include'        => $request->boolean('sitemap_include', true),
+            'breadcrumb_enable'      => $request->boolean('breadcrumb_enable', true),
         ]);
 
         if ($request->category_ids) {
@@ -55,7 +89,11 @@ class StoreController extends Controller
 
     public function edit(Store $store)
     {
-        $categories = Category::all();
+        // Get parent categories with their children for grouped display
+        $categories = Category::parents()
+            ->with(['children' => fn($q) => $q->orderBy('name')])
+            ->orderBy('name')
+            ->get();
         return view('admin.stores.edit', compact('store', 'categories'));
     }
 
@@ -71,6 +109,30 @@ class StoreController extends Controller
             'is_active'              => $request->boolean('is_active'),
             'affiliate_url_template' => $request->affiliate_url_template,
             'network'                => $request->network,
+            // Commission fields
+            'commission_type'        => $request->commission_type,
+            'commission_rate'        => $request->commission_rate,
+            'cpc_rate'               => $request->cpc_rate,
+            'cpa_rate'               => $request->cpa_rate,
+            // Basic SEO
+            'meta_title'             => $request->meta_title,
+            'meta_description'       => $request->meta_description,
+            'focus_keyword'          => $request->focus_keyword,
+            // Open Graph
+            'og_title'               => $request->og_title,
+            'og_description'         => $request->og_description,
+            'og_image'               => $request->og_image,
+            // Twitter
+            'twitter_title'          => $request->twitter_title,
+            'twitter_description'    => $request->twitter_description,
+            'twitter_image'          => $request->twitter_image,
+            // Technical SEO
+            'canonical_url'          => $request->canonical_url,
+            'robots_index'           => $request->robots_index ?? 'index',
+            'robots_follow'          => $request->robots_follow ?? 'follow',
+            'schema_type'            => $request->schema_type ?? 'Store',
+            'sitemap_include'        => $request->boolean('sitemap_include', true),
+            'breadcrumb_enable'      => $request->boolean('breadcrumb_enable', true),
         ]);
 
         if ($request->category_ids) {

@@ -12,6 +12,8 @@ class Coupon extends Model
         'store_id', 'title', 'description', 'code', 'type',
         'discount_value', 'destination_url', 'is_verified',
         'is_exclusive', 'is_active', 'click_count', 'expires_at',
+        // SEO fields
+        'meta_title', 'meta_description', 'focus_keyword',
     ];
 
     protected $casts = [
@@ -69,5 +71,42 @@ class Coupon extends Model
     public function scopeVerified($query)
     {
         return $query->where('is_verified', true);
+    }
+
+    // ─── SEO Helpers ─────────────────────────────────────────────────────────
+
+    /**
+     * Get SEO title (custom or auto-generated)
+     */
+    public function getSeoTitleAttribute(): string
+    {
+        if ($this->meta_title) {
+            return $this->meta_title;
+        }
+        return $this->title . ' - ' . ($this->store->name ?? 'Store') . ' Coupon';
+    }
+
+    /**
+     * Get SEO description (custom or auto-generated)
+     */
+    public function getSeoDescriptionAttribute(): string
+    {
+        if ($this->meta_description) {
+            return $this->meta_description;
+        }
+        $storeName = $this->store->name ?? 'this store';
+        return $this->description ?: "Get {$this->title} at {$storeName}. Save with this verified coupon code.";
+    }
+
+    /**
+     * Get SEO keywords
+     */
+    public function getSeoKeywordsAttribute(): string
+    {
+        $storeName = $this->store->name ?? '';
+        if ($this->focus_keyword) {
+            return "{$this->focus_keyword}, {$storeName} coupon, {$storeName} promo code";
+        }
+        return "{$storeName} coupon code, {$storeName} discount, {$storeName} promo code";
     }
 }

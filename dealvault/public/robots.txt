@@ -1,2 +1,25 @@
+# Valtwise Robots.txt
+# Allow all crawlers to index the site
+
 User-agent: *
-Disallow: /
+Allow: /
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /admin
+Disallow: /go/
+
+# Disallow query parameters that create duplicate content
+Disallow: /*?per_page=
+Disallow: /*?page=
+
+# Allow important CSS/JS
+Allow: /css/
+Allow: /js/
+Allow: /images/
+
+# Sitemap location
+Sitemap: https://valtwise.com/sitemap.xml
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1

@@ -1,7 +1,92 @@
 @extends('layouts.app')
 
-@section('title', $store->name . ' Coupons & Promo Codes — Valtwise')
-@section('meta_description', 'Find the latest ' . $store->name . ' coupon codes and deals. ' . $coupons->count() . ' active discounts verified today.')
+{{-- SEO: Uses custom values from admin or auto-generated --}}
+@section('title', $store->seo_title)
+@section('meta_description', $store->seo_description)
+@section('meta_keywords', $store->seo_keywords)
+
+{{-- Robots & Canonical (from enhanced SEO) --}}
+@section('robots', $store->seo_robots)
+@section('canonical', $store->seo_canonical)
+
+{{-- Open Graph --}}
+@section('og_title', $store->seo_og_title ?: $store->name . ' Coupons & Promo Codes — Up to ' . ($coupons->max('discount_value') ?? '50%') . ' Off')
+@section('og_description', $store->seo_og_description ?: 'Get ' . $coupons->count() . ' verified ' . $store->name . ' coupon codes and deals. Save money today!')
+@section('og_image', $store->seo_og_image ?: $store->logo_url)
+
+{{-- Schema Markup --}}
+@push('schema')
+{{-- BreadcrumbList Schema --}}
+<script type="application/ld+json">
+{
+    "@@context": "https://schema.org",
+    "@@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "{{ route('home') }}"
+        },
+        {
+            "@@type": "ListItem",
+            "position": 2,
+            "name": "Stores",
+            "item": "{{ route('stores.index') }}"
+        },
+        {
+            "@@type": "ListItem",
+            "position": 3,
+            "name": "{{ $store->name }}",
+            "item": "{{ route('stores.show', $store->slug) }}"
+        }
+    ]
+}
+</script>
+
+{{-- Store/Organization Schema --}}
+<script type="application/ld+json">
+{
+    "@@context": "https://schema.org",
+    "@@type": "Store",
+    "name": "{{ $store->name }}",
+    "url": "{{ route('stores.show', $store->slug) }}",
+    "logo": "{{ $store->logo_url }}",
+    "description": "{{ $store->description ?? 'Find the best ' . $store->name . ' coupon codes and deals' }}",
+    "offers": {
+        "@@type": "AggregateOffer",
+        "offerCount": {{ $coupons->count() }},
+        "lowPrice": "0",
+        "priceCurrency": "GBP"
+    }
+}
+</script>
+
+{{-- Offer Schema for each coupon --}}
+@foreach($coupons->take(10) as $coupon)
+<script type="application/ld+json">
+{
+    "@@context": "https://schema.org",
+    "@@type": "Offer",
+    "name": "{{ $coupon->title }}",
+    "description": "{{ $coupon->description ?? $coupon->title }}",
+    "seller": {
+        "@@type": "Organization",
+        "name": "{{ $store->name }}"
+    },
+    "url": "{{ route('stores.show', $store->slug) }}",
+    @if($coupon->discount_value)
+    "discount": "{{ $coupon->discount_value }}",
+    @endif
+    @if($coupon->expires_at)
+    "validThrough": "{{ $coupon->expires_at->toIso8601String() }}",
+    @endif
+    "availability": "https://schema.org/InStock",
+    "priceCurrency": "GBP"
+}
+</script>
+@endforeach
+@endpush
 
 @push('styles')
 <style>
@@ -135,7 +220,7 @@
         </div>
         <div class="store-header-inner">
             <div class="store-header-logo">
-                <img src="{{ $store->logo_url }}" alt="{{ $store->name }}"
+                <img src="{{ $store->logo_url }}" alt="{{ $store->name }}" width="72" height="72"
                      onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name={{ urlencode($store->name) }}&background=f3f4f6&color=374151&size=80'">
             </div>
             <div class="store-header-info">
@@ -261,7 +346,7 @@
                        style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--gray-1)">
                         <img src="{{ $s->logo_url }}"
                              style="width:36px;height:36px;border-radius:8px;border:1px solid var(--gray-2);object-fit:contain;padding:3px;background:#fafafa"
-                             alt="{{ $s->name }}"
+                             alt="{{ $s->name }}" width="36" height="36"
                              onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name={{ urlencode($s->name) }}&background=f3f4f6&color=374151&size=80'">
                         <div>
                             <div style="font-size:13px;font-weight:600">{{ $s->name }}</div>

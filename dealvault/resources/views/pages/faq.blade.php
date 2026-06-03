@@ -3,6 +3,82 @@
 @section('title', 'FAQ — Frequently Asked Questions — Valtwise')
 @section('meta_description', 'Got questions about Valtwise? Find answers to the most common questions about using coupon codes and deals.')
 
+{{-- FAQ Schema for Rich Snippets --}}
+@push('schema')
+<script type="application/ld+json">
+{
+    "@@context": "https://schema.org",
+    "@@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@@type": "Question",
+            "name": "How do I find coupon codes on Valtwise?",
+            "acceptedAnswer": {
+                "@@type": "Answer",
+                "text": "You can search for any store using the search bar at the top of the page, browse by category, or explore our featured stores on the homepage. Each store page shows all currently active coupon codes and deals for that brand."
+            }
+        },
+        {
+            "@@type": "Question",
+            "name": "How do I use a coupon code?",
+            "acceptedAnswer": {
+                "@@type": "Answer",
+                "text": "Click the 'Reveal Code' button on any coupon card. The code will be copied to your clipboard automatically, and you will be redirected to the merchant's website. At checkout, paste the code in the 'Coupon Code' or 'Promo Code' field to apply the discount."
+            }
+        },
+        {
+            "@@type": "Question",
+            "name": "What is the difference between a coupon code and a deal?",
+            "acceptedAnswer": {
+                "@@type": "Answer",
+                "text": "A coupon code is a text code (like 'SAVE20') that you enter at checkout. A deal requires no code — the discount is applied automatically when you click 'Get Deal' and land on the merchant's page. Both save you money!"
+            }
+        },
+        {
+            "@@type": "Question",
+            "name": "Why isn't my coupon code working?",
+            "acceptedAnswer": {
+                "@@type": "Answer",
+                "text": "Coupon codes can stop working for several reasons: the code may have expired, it may have a minimum order requirement, or it may be limited to first-time customers. We try to keep our listings updated, but we recommend checking the coupon's terms."
+            }
+        },
+        {
+            "@@type": "Question",
+            "name": "How do I know if a coupon is verified?",
+            "acceptedAnswer": {
+                "@@type": "Answer",
+                "text": "Verified coupons are marked with a green 'Verified' badge. This means our team has tested and confirmed that the code works. Unverified coupons are community-submitted or sourced from brand websites and may or may not work."
+            }
+        },
+        {
+            "@@type": "Question",
+            "name": "Is Valtwise free to use?",
+            "acceptedAnswer": {
+                "@@type": "Answer",
+                "text": "Absolutely — Valtwise is 100% free for shoppers. You never pay anything to use our platform. We earn a small commission from merchants when purchases are made through our links, and this keeps our service free for you."
+            }
+        },
+        {
+            "@@type": "Question",
+            "name": "How does Valtwise make money?",
+            "acceptedAnswer": {
+                "@@type": "Answer",
+                "text": "Valtwise earns affiliate commissions from partner merchants when users make purchases through our links. This is standard practice in the deals and coupons industry. Our goal is always to show you the best deals."
+            }
+        },
+        {
+            "@@type": "Question",
+            "name": "How often are new coupons added?",
+            "acceptedAnswer": {
+                "@@type": "Answer",
+                "text": "We update our deals and coupon codes regularly. New codes are added daily, and expired coupons are removed to keep our listings accurate and relevant."
+            }
+        }
+    ]
+}
+</script>
+@endpush
+
 @section('content')
 
 @push('styles')

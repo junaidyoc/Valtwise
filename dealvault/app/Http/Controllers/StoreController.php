@@ -9,6 +9,8 @@ class StoreController extends Controller
 {
     public function index(Request $request)
     {
+        $perPage = $request->input('per_page', 24);
+
         $stores = Store::active()
             ->withCount(['coupons' => fn($q) => $q->active()])
             ->when($request->search, fn($q, $s) =>
@@ -26,7 +28,8 @@ class StoreController extends Controller
                 }
             })
             ->orderBy('name')
-            ->paginate(24);
+            ->paginate($perPage)
+            ->appends($request->query());
 
         // Get available first letters for the filter
         $availableLetters = Store::active()
@@ -35,7 +38,7 @@ class StoreController extends Controller
             ->pluck('letter')
             ->toArray();
 
-        return view('stores.index', compact('stores', 'availableLetters'));
+        return view('stores.index', compact('stores', 'availableLetters', 'perPage'));
     }
 
     public function show(string $slug)

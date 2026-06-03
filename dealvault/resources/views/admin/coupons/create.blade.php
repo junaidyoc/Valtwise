@@ -82,17 +82,40 @@
           <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
             <input type="checkbox" name="is_verified" value="1"
                    {{ old('is_verified') ? 'checked' : '' }}>
-            ✓ Verified Coupon
+            Verified Coupon
           </label>
           <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
             <input type="checkbox" name="is_exclusive" value="1"
                    {{ old('is_exclusive') ? 'checked' : '' }}>
-            ⭐ Exclusive
+            Exclusive
           </label>
           <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
             <input type="checkbox" name="is_active" value="1" checked>
-            ✅ Active
+            Active
           </label>
+        </div>
+
+        {{-- SEO Settings --}}
+        <div class="form-group full" style="margin-top:16px;padding-top:16px;border-top:1px solid #334155">
+          <div style="font-size:14px;font-weight:600;color:#10b981;margin-bottom:12px">SEO Settings <span style="font-weight:400;color:#64748b">(Optional)</span></div>
+        </div>
+
+        <div class="form-group full">
+          <label>Meta Title <span style="color:#64748b;font-weight:400">(max 70 chars)</span></label>
+          <input type="text" name="meta_title" value="{{ old('meta_title') }}" maxlength="70"
+                 placeholder="Leave empty for auto-generated title">
+        </div>
+
+        <div class="form-group full">
+          <label>Meta Description <span style="color:#64748b;font-weight:400">(max 160 chars)</span></label>
+          <textarea name="meta_description" rows="2" maxlength="160"
+                    placeholder="Leave empty for auto-generated description">{{ old('meta_description') }}</textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Focus Keyword</label>
+          <input type="text" name="focus_keyword" value="{{ old('focus_keyword') }}" maxlength="50"
+                 placeholder="e.g. discount code">
         </div>
 
       </div>

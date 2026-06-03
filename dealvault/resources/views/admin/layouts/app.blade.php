@@ -76,6 +76,8 @@ tbody td{padding:12px;color:#cbd5e1}
 .btn-green:hover{background:#15803d}
 .btn-red{background:#dc2626;color:#fff}
 .btn-red:hover{background:#b91c1c}
+.btn-blue{background:#3b82f6;color:#fff}
+.btn-blue:hover{background:#2563eb}
 .btn-gray{background:#334155;color:#e2e8f0;border:1px solid #475569}
 .btn-gray:hover{background:#475569}
 .btn-sm{padding:5px 10px;font-size:12px}
@@ -105,6 +107,9 @@ select option{background:#1e293b}
 .pagination{display:flex;gap:4px;margin-top:16px}
 .pagination a,.pagination span{padding:6px 10px;border-radius:6px;font-size:12px;text-decoration:none;color:#94a3b8;border:1px solid #334155}
 .pagination .active span{background:#16a34a;color:#fff;border-color:#16a34a}
+/* Hide default Laravel SVG pagination icons */
+.pagination svg{display:none!important}
+nav[role="navigation"] svg{display:none!important}
 
 @media(max-width:768px){
   .sidebar{transform:translateX(-100%)}
@@ -145,6 +150,26 @@ select option{background:#1e293b}
     <a href="{{ route('admin.categories.index') }}"
        class="nav-item {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
       <span class="icon">📁</span> Categories
+    </a>
+    <a href="{{ route('admin.sale-events.index') }}"
+       class="nav-item {{ request()->routeIs('admin.sale-events.*') ? 'active' : '' }}">
+      <span class="icon">📅</span> Sale Events
+    </a>
+
+    <div class="nav-section">Blog</div>
+    <a href="{{ route('admin.blog-posts.index') }}"
+       class="nav-item {{ request()->routeIs('admin.blog-posts.*') ? 'active' : '' }}">
+      <span class="icon">📝</span> Blog Posts
+    </a>
+    <a href="{{ route('admin.blog-categories.index') }}"
+       class="nav-item {{ request()->routeIs('admin.blog-categories.*') ? 'active' : '' }}">
+      <span class="icon">📂</span> Blog Categories
+    </a>
+
+    <div class="nav-section">Settings</div>
+    <a href="{{ route('admin.seo.index') }}"
+       class="nav-item {{ request()->routeIs('admin.seo.*') ? 'active' : '' }}">
+      <span class="icon">🔍</span> SEO Settings
     </a>
 
     <div class="nav-section">Links</div>

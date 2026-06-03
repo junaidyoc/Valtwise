@@ -134,5 +134,11 @@ class DatabaseSeeder extends Seeder
         }
 
         $this->command->info('Seeded categories, stores, and coupons successfully.');
+
+        // Run Sale Events Seeder
+        $this->call(SaleEventSeeder::class);
+
+        // Run SEO Settings Seeder
+        $this->call(SeoSettingsSeeder::class);
     }
 }
