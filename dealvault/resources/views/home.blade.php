@@ -50,22 +50,29 @@
 </section>
 
 {{-- ── Stores Slider ───────────────────────────────────────────────────── --}}
+@php
+    $storeCount = $sliderStores->count();
+    // Each item is ~90px (70px + 20px gap). Need enough to fill ~2000px viewport twice
+    // Minimum 30 items for smooth looping, repeat if fewer
+    $minItems = 30;
+    $baseRepeat = $storeCount > 0 ? max(2, ceil($minItems / $storeCount)) : 2;
+    // Ensure even number for seamless -50% animation loop
+    $repeatCount = $baseRepeat + ($baseRepeat % 2);
+    // Animation duration: faster for fewer items, slower for more
+    // ~1.5s per store in one set ensures comfortable viewing speed
+    $animationDuration = max(12, $storeCount * 1.5);
+@endphp
 <section class="stores-slider-section">
     <div class="stores-slider-wrapper">
-        <div class="stores-slider-track">
-            @foreach($sliderStores as $store)
-            <a href="{{ route('stores.show', $store->slug) }}" class="slider-store-item">
-                <img src="{{ $store->logo_url }}" alt="{{ $store->name }}" loading="lazy" width="54" height="54"
-                     onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name={{ urlencode($store->name) }}&background=f3f4f6&color=374151&size=60'">
-            </a>
-            @endforeach
-            {{-- Duplicate for seamless infinite scroll --}}
-            @foreach($sliderStores as $store)
-            <a href="{{ route('stores.show', $store->slug) }}" class="slider-store-item">
-                <img src="{{ $store->logo_url }}" alt="{{ $store->name }}" loading="lazy" width="54" height="54"
-                     onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name={{ urlencode($store->name) }}&background=f3f4f6&color=374151&size=60'">
-            </a>
-            @endforeach
+        <div class="stores-slider-track" style="--slide-duration: {{ $animationDuration }}s">
+            @for($i = 0; $i < $repeatCount; $i++)
+                @foreach($sliderStores as $store)
+                <a href="{{ route('stores.show', $store->slug) }}" class="slider-store-item">
+                    <img src="{{ $store->logo_url }}" alt="{{ $store->name }}" loading="lazy" width="54" height="54"
+                         onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name={{ urlencode($store->name) }}&background=f3f4f6&color=374151&size=60'">
+                </a>
+                @endforeach
+            @endfor
         </div>
     </div>
 </section>

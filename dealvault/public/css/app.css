@@ -239,7 +239,7 @@
 .stores-slider-track {
     display: flex;
     gap: 20px;
-    animation: slideLeft 100s linear infinite;
+    animation: slideLeft var(--slide-duration, 30s) linear infinite;
     width: max-content;
 }
 .stores-slider-track:hover {
