@@ -86,16 +86,25 @@
           <div style="font-size:14px;font-weight:600;color:#10b981;margin-bottom:12px">SEO Settings <span style="font-weight:400;color:#64748b">(Optional)</span></div>
         </div>
 
+
         <div class="form-group full">
           <label>Meta Title <span style="color:#64748b;font-weight:400">(max 70 chars)</span></label>
-          <input type="text" name="meta_title" value="{{ old('meta_title', $coupon->meta_title) }}" maxlength="70"
+          <input type="text" name="meta_title" value="{{ old('meta_title', $coupon->meta_title) }}" maxlength="70" id="metaTitle"
                  placeholder="Leave empty for auto-generated title">
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:#64748b;margin-top:4px">
+            <span>Auto: {{ $coupon->title }} at {{ $coupon->store->name ?? 'Store' }} — Valtwise</span>
+            <span id="metaTitleCount">{{ strlen($coupon->meta_title ?? '') }}/70</span>
+          </div>
         </div>
 
         <div class="form-group full">
           <label>Meta Description <span style="color:#64748b;font-weight:400">(max 160 chars)</span></label>
-          <textarea name="meta_description" rows="2" maxlength="160"
+          <textarea name="meta_description" rows="2" maxlength="160" id="metaDesc"
                     placeholder="Leave empty for auto-generated description">{{ old('meta_description', $coupon->meta_description) }}</textarea>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:#64748b;margin-top:4px">
+            <span>Auto: Save with {{ $coupon->title }} from {{ $coupon->store->name ?? 'Store' }}. {{ $coupon->discount_value ? $coupon->discount_value . ' off!' : 'Get this deal now!' }}</span>
+            <span id="metaDescCount">{{ strlen($coupon->meta_description ?? '') }}/160</span>
+          </div>
         </div>
 
         <div class="form-group">
@@ -113,4 +122,16 @@
     </form>
   </div>
 </div>
+
+@push('scripts')
+<script>
+// Character counters
+document.getElementById('metaTitle')?.addEventListener('input', function() {
+  document.getElementById('metaTitleCount').textContent = this.value.length + '/70';
+});
+document.getElementById('metaDesc')?.addEventListener('input', function() {
+  document.getElementById('metaDescCount').textContent = this.value.length + '/160';
+});
+</script>
+@endpush
 @endsection

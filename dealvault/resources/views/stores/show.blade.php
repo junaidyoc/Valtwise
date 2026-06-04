@@ -170,22 +170,27 @@
     transform: translateY(-1px);
 }
 .coupon-discount-strip {
-    width: 110px;
+    min-width: 110px;
+    max-width: 140px;
     flex-shrink: 0;
     background: var(--green-light);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 16px 8px;
+    padding: 16px 10px;
     border-right: 1.5px dashed #86efac;
+    text-align: center;
+    word-break: break-word;
 }
 .discount-value {
     font-family: 'Sora', sans-serif;
-    font-size: 26px;
+    font-size: clamp(16px, 5vw, 24px);
     font-weight: 700;
     color: var(--green);
-    line-height: 1;
+    line-height: 1.1;
+    max-width: 100%;
+    overflow-wrap: break-word;
 }
 .discount-type { font-size: 10px; color: #15803d; font-weight: 600; text-transform: uppercase; margin-top: 4px; }
 .coupon-list-body { flex: 1; padding: 16px 20px; }

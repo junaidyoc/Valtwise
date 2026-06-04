@@ -245,15 +245,22 @@
               <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #334155">
                 <span style="font-size:18px">{{ $parent->icon ?? '🏷️' }}</span>
                 <span style="font-size:13px;font-weight:600;color:#e2e8f0">{{ $parent->name }}</span>
+                @if($parent->children->count() > 0)
+                <button type="button" onclick="toggleSubcats('subcats-{{ $parent->id }}')"
+                        style="padding:4px 10px;background:#1e3a5f;border:1px solid #334155;border-radius:4px;cursor:pointer;font-size:11px;color:#60a5fa;display:flex;align-items:center;gap:4px">
+                  <span id="subcats-{{ $parent->id }}-icon" style="transition:transform .2s;font-size:8px">▶</span>
+                  {{ $parent->children->count() }} subcats
+                </button>
+                @endif
                 <label style="display:flex;align-items:center;gap:4px;margin-left:auto;padding:4px 8px;background:#0f172a;border:1px solid #334155;border-radius:4px;cursor:pointer;font-size:11px;color:#64748b">
                   <input type="checkbox" name="category_ids[]" value="{{ $parent->id }}"
                          {{ in_array($parent->id, old('category_ids', [])) ? 'checked' : '' }}>
                   Main
                 </label>
               </div>
-              {{-- Subcategories --}}
+              {{-- Subcategories (hidden by default) --}}
               @if($parent->children->count() > 0)
-              <div style="display:flex;flex-wrap:wrap;gap:6px;padding-left:8px">
+              <div id="subcats-{{ $parent->id }}" style="display:none;flex-wrap:wrap;gap:6px;padding-left:8px;margin-top:8px">
                 @foreach($parent->children as $sub)
                 <label style="display:flex;align-items:center;gap:5px;padding:5px 10px;background:#0f172a;border:1px solid #334155;border-radius:6px;cursor:pointer;font-size:12px;color:#94a3b8;transition:all .15s">
                   <input type="checkbox" name="category_ids[]" value="{{ $sub->id }}"
@@ -262,8 +269,6 @@
                 </label>
                 @endforeach
               </div>
-              @else
-              <div style="font-size:11px;color:#475569;padding-left:8px">No subcategories</div>
               @endif
             </div>
             @endforeach
@@ -313,6 +318,18 @@ function toggleSeoSection() {
   const icon = document.getElementById('seoToggleIcon');
   if (section.style.display === 'none') {
     section.style.display = 'contents';
+    icon.style.transform = 'rotate(90deg)';
+  } else {
+    section.style.display = 'none';
+    icon.style.transform = 'rotate(0deg)';
+  }
+}
+
+function toggleSubcats(id) {
+  const section = document.getElementById(id);
+  const icon = document.getElementById(id + '-icon');
+  if (section.style.display === 'none') {
+    section.style.display = 'flex';
     icon.style.transform = 'rotate(90deg)';
   } else {
     section.style.display = 'none';

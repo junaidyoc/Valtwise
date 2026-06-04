@@ -10,8 +10,8 @@
         </div>
 
         @if($coupon->discount_value)
-        <div style="font-size:28px;font-family:'Sora',sans-serif;font-weight:700;color:var(--green);margin-bottom:6px;">
-            {{ $coupon->discount_value }} <span style="font-size:16px;color:var(--gray-3);font-weight:400;">OFF</span>
+        <div style="font-size:clamp(18px,5vw,28px);font-family:'Sora',sans-serif;font-weight:700;color:var(--green);margin-bottom:6px;word-break:break-word;line-height:1.2;">
+            {{ $coupon->discount_value }} <span style="font-size:14px;color:var(--gray-3);font-weight:400;">OFF</span>
         </div>
         @endif
 
