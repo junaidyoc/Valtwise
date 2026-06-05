@@ -10,7 +10,11 @@
         </div>
 
         @if($coupon->discount_value)
-        <div style="font-size:clamp(18px,5vw,28px);font-family:'Sora',sans-serif;font-weight:700;color:var(--green);margin-bottom:6px;word-break:break-word;line-height:1.2;">
+        @php
+            $valueLen = strlen($coupon->discount_value);
+            $fontSize = $valueLen > 10 ? '18px' : ($valueLen > 7 ? '22px' : '28px');
+        @endphp
+        <div style="font-size:{{ $fontSize }};font-family:'Sora',sans-serif;font-weight:700;color:var(--green);margin-bottom:6px;line-height:1.2;">
             {{ $coupon->discount_value }} <span style="font-size:14px;color:var(--gray-3);font-weight:400;">OFF</span>
         </div>
         @endif

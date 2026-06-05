@@ -170,29 +170,26 @@
     transform: translateY(-1px);
 }
 .coupon-discount-strip {
-    min-width: 110px;
-    max-width: 140px;
+    min-width: 120px;
     flex-shrink: 0;
     background: var(--green-light);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 16px 10px;
+    padding: 20px 12px;
     border-right: 1.5px dashed #86efac;
     text-align: center;
-    word-break: break-word;
 }
 .discount-value {
     font-family: 'Sora', sans-serif;
-    font-size: clamp(16px, 5vw, 24px);
+    font-size: 22px;
     font-weight: 700;
     color: var(--green);
-    line-height: 1.1;
-    max-width: 100%;
-    overflow-wrap: break-word;
+    line-height: 1.2;
+    white-space: nowrap;
 }
-.discount-type { font-size: 10px; color: #15803d; font-weight: 600; text-transform: uppercase; margin-top: 4px; }
+.discount-type { font-size: 11px; color: #15803d; font-weight: 600; text-transform: uppercase; margin-top: 2px; letter-spacing: 0.5px; }
 .coupon-list-body { flex: 1; padding: 16px 20px; }
 .coupon-list-title { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 4px; }
 .coupon-list-desc { font-size: 13px; color: var(--gray-4); margin-bottom: 10px; }
@@ -208,6 +205,28 @@
 }
 
 .json-ld { display: none; }
+
+/* Responsive for coupon cards */
+@media (max-width: 767px) {
+    .coupon-list-item { flex-direction: column; }
+    .coupon-discount-strip {
+        width: 100%;
+        min-width: auto;
+        flex-direction: row;
+        gap: 8px;
+        padding: 12px 16px;
+        border-right: none;
+        border-bottom: 1.5px dashed #86efac;
+    }
+    .discount-value { font-size: 20px !important; }
+    .discount-type { margin-top: 0; }
+    .coupon-list-action {
+        width: 100%;
+        min-width: auto;
+        border-left: none;
+        border-top: 1px solid var(--gray-1);
+    }
+}
 </style>
 @endpush
 
@@ -281,7 +300,11 @@
                         {{-- Discount strip --}}
                         <div class="coupon-discount-strip">
                             @if($coupon->discount_value)
-                            <div class="discount-value">{{ $coupon->discount_value }}</div>
+                            @php
+                                $valueLen = strlen($coupon->discount_value);
+                                $fontSize = $valueLen > 10 ? '16px' : ($valueLen > 7 ? '18px' : '22px');
+                            @endphp
+                            <div class="discount-value" style="font-size:{{ $fontSize }}">{{ $coupon->discount_value }}</div>
                             <div class="discount-type">{{ $coupon->type === 'deal' ? 'Deal' : 'Off' }}</div>
                             @else
                             <div class="discount-value" style="font-size:18px">SALE</div>
