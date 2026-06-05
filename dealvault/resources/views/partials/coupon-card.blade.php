@@ -11,11 +11,14 @@
 
         @if($coupon->discount_value)
         @php
-            $valueLen = strlen($coupon->discount_value);
-            $fontSize = $valueLen > 10 ? '18px' : ($valueLen > 7 ? '22px' : '28px');
+            $value = $coupon->discount_value;
+            $hasOff = stripos($value, 'off') !== false;
+            $cleanValue = $hasOff ? trim(preg_replace('/\s*off\s*/i', '', $value)) : $value;
+            $valueLen = strlen($cleanValue);
+            $fontSize = $valueLen > 8 ? '20px' : ($valueLen > 5 ? '24px' : '28px');
         @endphp
         <div style="font-size:{{ $fontSize }};font-family:'Sora',sans-serif;font-weight:700;color:var(--green);margin-bottom:6px;line-height:1.2;">
-            {{ $coupon->discount_value }} <span style="font-size:14px;color:var(--gray-3);font-weight:400;">OFF</span>
+            {{ $cleanValue }} <span style="font-size:14px;color:var(--gray-3);font-weight:500;">OFF</span>
         </div>
         @endif
 

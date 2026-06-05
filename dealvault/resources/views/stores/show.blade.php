@@ -170,26 +170,25 @@
     transform: translateY(-1px);
 }
 .coupon-discount-strip {
-    min-width: 120px;
+    min-width: 140px;
     flex-shrink: 0;
     background: var(--green-light);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px 12px;
+    padding: 24px 14px;
     border-right: 1.5px dashed #86efac;
     text-align: center;
 }
 .discount-value {
     font-family: 'Sora', sans-serif;
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 700;
     color: var(--green);
     line-height: 1.2;
-    white-space: nowrap;
 }
-.discount-type { font-size: 11px; color: #15803d; font-weight: 600; text-transform: uppercase; margin-top: 2px; letter-spacing: 0.5px; }
+.discount-type { font-size: 13px; color: #15803d; font-weight: 700; text-transform: uppercase; margin-top: 4px; letter-spacing: 1px; }
 .coupon-list-body { flex: 1; padding: 16px 20px; }
 .coupon-list-title { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 4px; }
 .coupon-list-desc { font-size: 13px; color: var(--gray-4); margin-bottom: 10px; }
@@ -213,13 +212,13 @@
         width: 100%;
         min-width: auto;
         flex-direction: row;
-        gap: 8px;
-        padding: 12px 16px;
+        gap: 6px;
+        padding: 14px 16px;
         border-right: none;
         border-bottom: 1.5px dashed #86efac;
     }
-    .discount-value { font-size: 20px !important; }
-    .discount-type { margin-top: 0; }
+    .discount-value { font-size: 22px !important; }
+    .discount-type { margin-top: 0; font-size: 12px; }
     .coupon-list-action {
         width: 100%;
         min-width: auto;
@@ -301,13 +300,17 @@
                         <div class="coupon-discount-strip">
                             @if($coupon->discount_value)
                             @php
-                                $valueLen = strlen($coupon->discount_value);
-                                $fontSize = $valueLen > 10 ? '16px' : ($valueLen > 7 ? '18px' : '22px');
+                                $value = $coupon->discount_value;
+                                $hasOff = stripos($value, 'off') !== false;
+                                // Remove "OFF" from value if present, we'll show it separately
+                                $cleanValue = $hasOff ? trim(preg_replace('/\s*off\s*/i', '', $value)) : $value;
+                                $valueLen = strlen($cleanValue);
+                                $fontSize = $valueLen > 8 ? '18px' : ($valueLen > 5 ? '22px' : '26px');
                             @endphp
-                            <div class="discount-value" style="font-size:{{ $fontSize }}">{{ $coupon->discount_value }}</div>
-                            <div class="discount-type">{{ $coupon->type === 'deal' ? 'Deal' : 'Off' }}</div>
+                            <div class="discount-value" style="font-size:{{ $fontSize }}">{{ $cleanValue }}</div>
+                            <div class="discount-type">{{ $coupon->type === 'deal' ? 'Deal' : 'OFF' }}</div>
                             @else
-                            <div class="discount-value" style="font-size:18px">SALE</div>
+                            <div class="discount-value" style="font-size:20px">SALE</div>
                             @endif
                         </div>
 
